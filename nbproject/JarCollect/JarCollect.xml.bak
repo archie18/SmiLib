@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Author: Andreas Schüller <archvile@gmx.net> 2005 -->
+<project name="JarCollect" default="default" basedir=".">
+    <description>Collects all dirs and jars in the classpath to build a fat jar.</description>
+
+    <property name="jarCollect.home.dir" value="nbproject/JarCollect"/>
+
+		<target name="-post-jar" description="Build fat JAR.">
+				<property name="jarCollect.lib.dir" value="lib"/>
+				<property name="jarCollect.temp.build.file" value="JarCollect-temp.xml"/>
+				<property name="jarCollect.temp.jar.file" value="JarCollect-temp.jar"/>
+				<mkdir dir="${jarCollect.lib.dir}"/>
+				<move file="${dist.jar}" tofile="${jarCollect.temp.jar.file}"/>
+				<java jar="${jarCollect.home.dir}/JarCollect.jar" fork="true" output="${jarCollect.temp.build.file}">
+					<arg path="${javac.classpath}"/>
+					<arg path="${jarCollect.lib.dir}"/>
+				</java>
+				<ant antfile="${jarCollect.temp.build.file}"/>
+		    <jar destfile="${dist.jar}" manifest="${manifest.file}">
+		      <zipgroupfileset dir="${jarCollect.lib.dir}" />
+		      <zipfileset src="${jarCollect.temp.jar.file}"/>
+          <manifest>
+            <attribute name="Main-Class" value="${main.class}"/>
+          </manifest>
+		   </jar>
+		   <!-- <delete file="${jarCollect.temp.build.file}"/>
+		   <delete file="${jarCollect.temp.jar.file}"/> -->
+		</target>
+		
+		<target name="install" description="Installs JarCollect.">
+		    <input message="Please specify the netbeans project directory you wish JarCollect to install to (press [ENTER] to use the current directory):" addproperty="project.dir" defaultvalue="."/> 
+		    <replace file="${project.dir}/build.xml">
+  		  		<replacetoken><![CDATA[<import file="nbproject/build-impl.xml"/>]]></replacetoken>
+  		  		<replacevalue><![CDATA[<import file="%JarCollect.home.dir%/JarCollect.xml"/>
+    <import file="nbproject/build-impl.xml"/>]]></replacevalue>
+		    </replace>
+		    <replace file="${project.dir}/build.xml" token="%JarCollect.home.dir%" value="${jarCollect.home.dir}"/>
+		    <mkdir dir="${project.dir}/${jarCollect.home.dir}"/>
+		    <copy file="JarCollect.jar" todir="${project.dir}/${jarCollect.home.dir}"/>
+		    <copy file="JarCollect.xml" todir="${project.dir}/${jarCollect.home.dir}"/>
+		</target>
+		
+		<target name="uninstall" description="Removes JarCollect.">
+		    <input message="Please specify the netbeans project directory you wish JarCollect to uninstall from (press [ENTER] to use the current directory):" addproperty="project.dir" defaultvalue="."/> 
+		    <replace file="${project.dir}/build.xml" token="${jarCollect.home.dir}" value="%JarCollect.home.dir%"/>
+		    <replace file="${project.dir}/build.xml" value="">
+  		  		<replacetoken><![CDATA[<import file="%JarCollect.home.dir%/JarCollect.xml"/>
+    ]]></replacetoken>
+		    </replace>
+		    <delete dir="${project.dir}/${jarCollect.home.dir}"/>
+		</target>
+		  
+
+</project>

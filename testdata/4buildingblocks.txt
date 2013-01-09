@@ -1,0 +1,4 @@
+[A]C1CCCC1
+[A]C(=O)O
+[A]N
+N(=N)NC[A]

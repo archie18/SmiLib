@@ -1,0 +1,7 @@
+[A]O=[R]
+[A]#O[R]
+[R]
+[A]
+CCCCCC
+[A]O[R2]
+[A1]O[R]

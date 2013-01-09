@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File for SmiLib v2.0 -->
+      
+<jnlp spec="1.0+"
+      codebase="http://gecco.org.chemie.uni-frankfurt.de/smilib/"
+      href="smilib.jnlp">
+   <information>
+      <title>SmiLib v2.0</title>
+      <vendor>Johann Wolfgang Goethe University</vendor>
+      <description>SmiLib v2.0 - Rapid combinatorial library enumeration in SMILES notation</description>
+      <homepage href="http://gecco.org.chemie.uni-frankfurt.de/smilib/"/>
+      <description kind="short">SmiLib v2.0 graphical user interface</description>
+      <offline-allowed/>
+   </information>
+   <security>
+      <all-permissions/>
+   </security>
+   <resources>     
+      <jar href="SmiLib.jar"/>   
+      <j2se version="1.5+"
+         href="http://java.sun.com/products/autodl/j2se"/>
+   </resources>
+   <application-desc main-class="de.modlab.smilib.main.SmiLib">
+      <argument>-u</argument>
+   </application-desc>
+</jnlp> 

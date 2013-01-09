@@ -1,0 +1,11 @@
+[A]C
+[A]CC
+[A]CCC(C)C
+[A]CC(C)(C)C
+[A]CCOC
+[A]CCO
+[A]CCCN
+[A]CCN(C)C
+[A]CCNC(=N)N
+[A]CC(=O)O
+

@@ -1,0 +1,16 @@
+C1-C-C-C-C-C1-[R1]
+C1-C-C-C-C-C1[R1]
+C1-C-C-C-C-C1[R1]
+N[C@@]([R1])(C)C(=O)O
+[R1][C@@](F)(C)C(=O)O
+Br[C@@](C)([R1])C(=O)O
+Br[C@@](C)(C(=O)O)([R1])
+CCCC[R1]
+CCCC[R1]
+CCCC[R1]
+CCCC-[R1]
+CCCC[R1]
+[R1][n+]1ccccc1
+[OH2+][R1]
+C%10.C%10[R1]
+C%99.C%99[R1]
