@@ -221,18 +221,25 @@ public class SmiLibRunner implements Runnable {
      * <br>
      * Example to enumerate a complete SmiLib library:
      * <pre>
+     * String[] scaffolds = new String[] {"CCC[R1]"};
+     * String[] linkers = new String[] {"[R][A]"};
+     * String[] bBlocks = new String[] {"[A]Br", "[A]Cl"};
      * SmilesListWriter smiWri = new SmilesListWriter();
      * SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, null, true, smiWri);
-     * runner.run();
-     * List&lt;String&gt; smiles = smiWri.getSmilesList();
+     * runner.run(); // Run SmiLib
+     * List&lt;String&gt; smiles = smiWri.getSmilesList(); // Retrieve results
      * </pre>
      * <br>
      * Example to enumerate a SmiLib library according to a reaction scheme:
      * <pre>
+     * String[] scaffolds = new String[] {"CCC[R1]"};
+     * String[] linkers = new String[] {"[R][A]"};
+     * String[] bBlocks = new String[] {"[A]Br", "[A]Cl"};
+     * String[] reactionScheme = new String[] {"1\t1\t2"}; // The reaction scheme
      * SmilesListWriter smiWri = new SmilesListWriter();
      * SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, reactionScheme, true, smiWri);
-     * runner.run();
-     * List&lt;String&gt; smiles = smiWri.getSmilesList();
+     * runner.run(); // Run SmiLib
+     * List&lt;String&gt; smiles = smiWri.getSmilesList(); // Retrieve results
      * </pre>
      * <br>
      * @param scaffolds array of source scaffolds, optionally with ID
