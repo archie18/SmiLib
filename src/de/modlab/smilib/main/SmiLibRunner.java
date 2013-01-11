@@ -227,8 +227,7 @@ public class SmiLibRunner implements Runnable {
      * SmilesListWriter smiWri = new SmilesListWriter();
      * SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, null, true, smiWri);
      * runner.run(); // Run SmiLib
-     * List
-     * &lt;String[]&gt; library = smiWri.getSmilesList(); // Retrieve results
+     * List&lt;String[]&gt; library = smiWri.getSmilesList(); // Retrieve results
      * // String id = library.get(0)[0];
      * // String smiles = library.get(0)[1];
      * </pre>
