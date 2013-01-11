@@ -305,7 +305,11 @@ public class SmiLibRunner implements Runnable {
                 smiFrame.showEndMessage(start, end);
             } else if (!printToCommandLine) {
                 //total time is printed out
-                System.out.println(compoundCounter + " compounds synthesized in " + df.format((double)(end - start)/1000000000) + " seconds");
+                if (compoundCounter == 1) {
+                    System.out.println(compoundCounter + " compound synthesized in " + df.format((double)(end - start)/1000000000) + " seconds");
+                } else {
+                    System.out.println(compoundCounter + " compounds synthesized in " + df.format((double)(end - start)/1000000000) + " seconds");
+                }
             }
         }
     }
