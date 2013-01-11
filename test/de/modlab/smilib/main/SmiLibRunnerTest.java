@@ -110,16 +110,24 @@ public class SmiLibRunnerTest extends TestCase {
     SmilesListWriter smiWri = new SmilesListWriter();
     SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, null, true, smiWri);
     runner.run(); // Run SmiLib
-    List<String> smiles = smiWri.getSmilesList(); // Retrieve results
+    List<String[]> library = smiWri.getSmilesList(); // Retrieve results
     // ---snip--- End copy&past here
     
+    // Expected data
+    String[] expectedIds = new String[] {"1.1_1", "1.1_2"};
+    String[] expectedSmiles = new String[] {"CCC%10.Br%10", "CCC%10.Cl%10"};
+
     // Assert equal library size
-    String[] expected = new String[] {"CCC%10.Br%10", "CCC%10.Cl%10"};
-    assertEquals("Library size", expected.length, smiles.size());
+    assertEquals("Library size", expectedSmiles.length, library.size());
+    
+    // Assert equal IDs
+    for (int i = 0; i < expectedIds.length; i++) {
+      assertEquals(expectedIds[i], library.get(i)[0]);
+    }
     
     // Assert equal smiles
-    for (int i = 0; i < expected.length; i++) {
-      assertEquals(expected[i], smiles.get(i).split("\t")[1]);
+    for (int i = 0; i < expectedSmiles.length; i++) {
+      assertEquals(expectedSmiles[i], library.get(i)[1]);
     }
   }
 
@@ -140,16 +148,24 @@ public class SmiLibRunnerTest extends TestCase {
     SmilesListWriter smiWri = new SmilesListWriter();
     SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, reactionScheme, true, smiWri);
     runner.run(); // Run SmiLib
-    List<String> smiles = smiWri.getSmilesList(); // Retrieve results
+    List<String[]> library = smiWri.getSmilesList(); // Retrieve results
     // ---snip--- End copy&past here
     
+    // Expected data
+    String[] expectedIds = new String[] {"1.1_2"};
+    String[] expectedSmiles = new String[] {"CCC%10.Cl%10"};
+    
     // Assert equal library size
-    String[] expected = new String[] {"CCC%10.Cl%10"};
-    assertEquals("Library size", expected.length, smiles.size());
-
+    assertEquals("Library size", expectedSmiles.length, library.size());
+    
+    // Assert equal IDs
+    for (int i = 0; i < expectedIds.length; i++) {
+      assertEquals(expectedIds[i], library.get(i)[0]);
+    }
+    
     // Assert equal smiles
-    for (int i = 0; i < expected.length; i++) {
-      assertEquals(expected[i], smiles.get(i).split("\t")[1]);
+    for (int i = 0; i < expectedSmiles.length; i++) {
+      assertEquals(expectedSmiles[i], library.get(i)[1]);
     }
   }
 
@@ -164,17 +180,17 @@ public class SmiLibRunnerTest extends TestCase {
     SmilesListWriter smiWri = new SmilesListWriter();
     SmiLibRunner instance = new SmiLibRunner(TestConstants.twoScaffoldsSmiles, TestConstants.threeLinkersSmiles, TestConstants.fourBuildingBlocksSmiles, TestConstants.twoThreeFourValidReactionSchemeScheme, true, smiWri);
     instance.run();
-    List<String> smiles = smiWri.getSmilesList();
+    List<String[]> library = smiWri.getSmilesList();
 
     // Assertion
     String[] expectedSmiles = TestConstants.twoThreeFourValidReactionSchemeSmiles;
-    assertEquals("Library size", expectedSmiles.length, smiles.size());
+    assertEquals("Library size", expectedSmiles.length, library.size());
     
     for (int i = 0; i < expectedSmiles.length; i++) {
       String convertedSmiles = null;
       String convertedExpectedSmiles = null;
       try {
-        convertedSmiles = TestUtils.convertWithOpenBabelToInChI(smiles.get(i).split("\t")[1]);
+        convertedSmiles = TestUtils.convertWithOpenBabelToInChI(library.get(i)[1]);
         convertedExpectedSmiles = TestUtils.convertWithOpenBabelToInChI(expectedSmiles[i]);
       } catch (Exception ex) {
         ex.printStackTrace();

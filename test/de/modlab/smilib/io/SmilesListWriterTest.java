@@ -84,16 +84,19 @@ public class SmilesListWriterTest extends TestCase {
             id.append(i);
             instance.writeSMILES(smiles, id);
         }
-        List<String> smilesList = instance.getSmilesList();
+        List<String[]> smilesList = instance.getSmilesList();
         
         // Assert equal size
         assertEquals("SmilesList not of expected size", TestConstants.twoThreeFourValidReactionSchemeSmiles.length, smilesList.size());
         
         // Assert content
         for (int i = 0; i < TestConstants.twoThreeFourValidReactionSchemeSmiles.length; i++) {
-            String expected = String.valueOf(i) + "\t" + TestConstants.twoThreeFourValidReactionSchemeSmiles[i];
-            String actual = smilesList.get(i);
-            assertEquals("Assert equal id\\tSMILES", expected, actual);
+            String expectedId = String.valueOf(i);
+            String expectedSmiles = TestConstants.twoThreeFourValidReactionSchemeSmiles[i];
+            String actualId = smilesList.get(i)[0];
+            String actualSmiles = smilesList.get(i)[1];
+            assertEquals("Assert equal ID", expectedId, actualId);
+            assertEquals("Assert equal SMILES", expectedSmiles, actualSmiles);
         }
     }
 
@@ -129,16 +132,19 @@ public class SmilesListWriterTest extends TestCase {
                 fail("Unexpected exception thrown: " + ex);
             }
         }
-        List<String> smilesList = instance.getSmilesList();
+        List<String[]> smilesList = instance.getSmilesList();
         
         // Assert equal size
         assertEquals("SmilesList not of expected size", TestConstants.twoThreeFourValidReactionSchemeSmiles.length, smilesList.size());
         
         // Assert content
         for (int i = 0; i < TestConstants.twoThreeFourValidReactionSchemeSmiles.length; i++) {
-            String expected = String.valueOf(i) + "\t" + TestConstants.twoThreeFourValidReactionSchemeSmiles[i];
-            String actual = smilesList.get(i);
-            assertEquals("Assert equal id\\tSMILES", expected, actual);
+            String expectedId = String.valueOf(i);
+            String expectedSmiles = TestConstants.twoThreeFourValidReactionSchemeSmiles[i];
+            String actualId = smilesList.get(i)[0];
+            String actualSmiles = smilesList.get(i)[1];
+            assertEquals("Assert equal ID", expectedId, actualId);
+            assertEquals("Assert equal SMILES", expectedSmiles, actualSmiles);
         }
     }
 }
