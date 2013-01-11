@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class SmilesListWriter implements SmilesWriter {
     
-    List<String> smilesList;
+    List<String[]> smilesList;
     
     /**
      *Creates a new instance of SmilesLineWriter.
@@ -74,9 +74,9 @@ public class SmilesListWriter implements SmilesWriter {
     public void writeSMILES(StringBuilder smiles, StringBuilder id) throws SmiLibIOException, SmiLibException {
         // Lazy initialization of the smilesList
         if (smilesList == null) {
-            smilesList = new ArrayList<String>();
+            smilesList = new ArrayList<String[]>();
         }
-        smilesList.add(id.append('\t').append(smiles).toString());
+        smilesList.add(new String[] {id.toString(), smiles.toString()});
     }
     
     
@@ -90,10 +90,11 @@ public class SmilesListWriter implements SmilesWriter {
     }
     
     /**
-     * Returns the output smiles list
+     * Returns the output smiles list. Each list entry consists of String array
+     * of length 2. Index 0 contains the ID and index 1 contains the SMILES.
      * @return the output smiles list
      */
-    public List<String> getSmilesList() {
+    public List<String[]> getSmilesList() {
         return this.smilesList;
     }
 }
