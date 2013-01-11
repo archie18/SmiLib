@@ -133,6 +133,13 @@ public class TestConstants {
     "N(=N)NC[A]"
   };
   
+  // Same as ./testdata/234_valid_reaction_scheme.txt
+  public static final String[] twoThreeFourValidReactionSchemeScheme = new String[] {
+    "1\t1\t1\t1\t1",
+    "1\t1-2\t3;4\t3;1\t1",
+    "2\t1\t1\t1\t1\t1\t1"
+  };
+  
   public static final String emptyLinesScaffolds = "./testdata/empty_lines_scaffolds.txt";
   
   public static final String emptyLinesLinkers = "./testdata/empty_lines_linkers.txt";
