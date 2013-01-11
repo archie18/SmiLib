@@ -95,37 +95,87 @@ public class SmiLibRunnerTest extends TestCase {
   }
 
   /**
+   * Example #1: This is a simple example that can be copied and pasted to run
+   * SmiLib from within other Java projects enumerating a full library.
+   * Test of constructor, of class de.modlab.smilib.main.SmiLibRunner, for use
+   * in external Java projects.
+   */
+  public void testSmiLibRunnerListExample1() {
+    System.out.println("testSmiLibRunnerListExample1");
+
+    // ---snip--- Start copy&past here
+    String[] scaffolds = new String[] {"CCC[R1]"};
+    String[] linkers = new String[] {"[R][A]"};
+    String[] bBlocks = new String[] {"[A]Br", "[A]Cl"};
+    SmilesListWriter smiWri = new SmilesListWriter();
+    SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, null, true, smiWri);
+    runner.run(); // Run SmiLib
+    List<String> smiles = smiWri.getSmilesList(); // Retrieve results
+    // ---snip--- End copy&past here
+    
+    // Assert equal library size
+    String[] expected = new String[] {"CCC%10.Br%10", "CCC%10.Cl%10"};
+    assertEquals("Library size", expected.length, smiles.size());
+    
+    // Assert equal smiles
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(expected[i], smiles.get(i).split("\t")[1]);
+    }
+  }
+
+  /**
+   * Example #2: This is a simple example that can be copied and pasted to run
+   * SmiLib from within other Java projects using a reaction scheme.
+   * Test of constructor, of class de.modlab.smilib.main.SmiLibRunner, for use
+   * in external Java projects.
+   */
+  public void testSmiLibRunnerListExample2() {
+    System.out.println("testSmiLibRunnerListExample2");
+
+    // ---snip--- Start copy&past here
+    String[] scaffolds = new String[] {"CCC[R1]"};
+    String[] linkers = new String[] {"[R][A]"};
+    String[] bBlocks = new String[] {"[A]Br", "[A]Cl"};
+    String[] reactionScheme = new String[] {"1\t1\t2"}; // The reaction scheme
+    SmilesListWriter smiWri = new SmilesListWriter();
+    SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, reactionScheme, true, smiWri);
+    runner.run(); // Run SmiLib
+    List<String> smiles = smiWri.getSmilesList(); // Retrieve results
+    // ---snip--- End copy&past here
+    
+    // Assert equal library size
+    String[] expected = new String[] {"CCC%10.Cl%10"};
+    assertEquals("Library size", expected.length, smiles.size());
+
+    // Assert equal smiles
+    for (int i = 0; i < expected.length; i++) {
+      assertEquals(expected[i], smiles.get(i).split("\t")[1]);
+    }
+  }
+
+  /**
    * Test of constructor, of class de.modlab.smilib.main.SmiLibRunner, for use
    * in external Java projects
    */
   public void testSmiLibRunnerList() {
     System.out.println("testSmiLibRunnerList");
 
-    // Load expected smiles
-    List<String> expectedSmiles = null;
-    try {
-      expectedSmiles = TestUtils.readFile(TestConstants.twoThreeFourCompleteEnumerationSmiles);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      fail("Unexpected exception was thrown.");
-    }
-
     // Generate smiles
     SmilesListWriter smiWri = new SmilesListWriter();
-    SmiLibRunner instance = new SmiLibRunner(TestConstants.twoScaffoldsSmiles, TestConstants.threeLinkersSmiles, TestConstants.fourBuildingBlocksSmiles, null, true, smiWri);
+    SmiLibRunner instance = new SmiLibRunner(TestConstants.twoScaffoldsSmiles, TestConstants.threeLinkersSmiles, TestConstants.fourBuildingBlocksSmiles, TestConstants.twoThreeFourValidReactionSchemeScheme, true, smiWri);
     instance.run();
     List<String> smiles = smiWri.getSmilesList();
 
     // Assertion
-    assertEquals("Library size", expectedSmiles.size(), smiles.size());
+    String[] expectedSmiles = TestConstants.twoThreeFourValidReactionSchemeSmiles;
+    assertEquals("Library size", expectedSmiles.length, smiles.size());
     
-    System.out.println("Converting SMILES with OpenBabel...");
-    for (int i = 0; i < expectedSmiles.size(); i++) {
+    for (int i = 0; i < expectedSmiles.length; i++) {
       String convertedSmiles = null;
       String convertedExpectedSmiles = null;
       try {
         convertedSmiles = TestUtils.convertWithOpenBabelToInChI(smiles.get(i).split("\t")[1]);
-        convertedExpectedSmiles = TestUtils.convertWithOpenBabelToInChI(expectedSmiles.get(i));
+        convertedExpectedSmiles = TestUtils.convertWithOpenBabelToInChI(expectedSmiles[i]);
       } catch (Exception ex) {
         ex.printStackTrace();
         fail("An error converting with openbabel occurred: " + ex.getMessage());
