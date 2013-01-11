@@ -245,7 +245,8 @@ public class SmiLibRunner implements Runnable {
      */
     public SmiLibRunner(String[] scaffolds, String[] linkers, String[] bBlocks,
             String[] reactionScheme, boolean checkSmiles, SmilesWriter smiWri) {
-        
+
+        this.printToCommandLine = true; // Set true to avoid sending messages to stdout
         try {
             compAdmin = new ComponentAdministrator(scaffolds, linkers, bBlocks, checkSmiles);
             if (reactionScheme == null) {
