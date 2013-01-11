@@ -111,6 +111,8 @@ public class SmiLibRunnerTest extends TestCase {
     SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, null, true, smiWri);
     runner.run(); // Run SmiLib
     List<String[]> library = smiWri.getSmilesList(); // Retrieve results
+    // String id = library.get(0)[0];
+    // String smiles = library.get(0)[1];
     // ---snip--- End copy&past here
     
     // Expected data
@@ -149,6 +151,8 @@ public class SmiLibRunnerTest extends TestCase {
     SmiLibRunner runner = new SmiLibRunner(scaffolds, linkers, bBlocks, reactionScheme, true, smiWri);
     runner.run(); // Run SmiLib
     List<String[]> library = smiWri.getSmilesList(); // Retrieve results
+    // String id = library.get(0)[0];
+    // String smiles = library.get(0)[1];
     // ---snip--- End copy&past here
     
     // Expected data
