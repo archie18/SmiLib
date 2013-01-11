@@ -1,0 +1,25 @@
+Change log - SmiLib 2.0
+
+Current version: 2.0 rc4
+
+date          version    type       comment
+2013-01-11    2.0 rc4    Feature    Added a convenience method (more precisely:
+                                    constructor) to SmiLibRunner to employ
+                                    SmiLib as a Java library to run within
+                                    other projects.
+                                    New version: 2.0 rc4
+2012-05-31    2.0 rc3    Bug fix    Fixed a bug with misplaced triple bonds
+                                    New version: 2.0 rc3
+2008-01-17    2.0 rc2    Bug fix    Fixed a bug where incomplete output
+                                    was produced with the GUI version
+                                    due to not closing a file writer.
+2008-01-17    2.0 rc2    Bug fix    Fixed a bug where the console
+                                    version complained about a missing
+                                    attachment site when empty lines
+                                    were present in input files. Empty
+                                    lines are ignored now.
+2008-01-17    2.0 rc2    Feature    A meaningful error message is now
+                                    given when an uneven number of
+                                    brackets is found.
+                                    New version: 2.0 rc2
+                                    

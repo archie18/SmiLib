@@ -1,0 +1,57 @@
+/* Da der Internet Explorer schon sehr alt ist versteht er einige Angaben des
+   orginal CSS nicht. Hier versuchen wir mit zusätzlichem CSS ihm auf die Sprünge
+   zu helfen. */
+   
+
+
+/* Max-Width für den IE 5+6 simmulieren */
+div#container {
+ height: 1em;
+ width: 760px;
+ width:expression(document.body.clientWidth>905?"900px":"auto");
+}
+
+#subnav {
+ margin: 0px 0 0 0%;  /* Aus 1% mach 0%, und schon verschiebt sich das Menü nicht mehr...*/
+ }
+
+#menu {
+  height: 1em;
+}
+
+/* Ein Workaround für den IE <=6, der kein margin: auto; zum Zentrieren der Seite versteht. */
+body { /* durch das zentrieren des Body erreichen wir dass auch container zentriert ist. */
+ text-align: center;
+}
+#container { /* Jetzt müssen wir alles innerhalb des Containers wieder linksbündig machen. */
+ text-align: left;
+}
+
+/* Logo im IE 5+6 nicht abschneiden lassen */
+#logo {
+ line-height: 89px;
+ padding-right: 10px;
+}
+
+#main {
+ height: 578px;
+ padding: 20px 20px 20px 1em; /* Der rechte Abstand 2% Stellt sicher dass auch nach dem Umfließen der Subnavigation der Text genau so breit wird wie oben und ein zwei Columnen Eindruck entsteht. */
+ margin-left: 28%;
+ background-color: white;
+}
+
+#main a.right {
+ margin: 0 0 0 0%;
+}
+
+h1 { /* Die Überschrift jeder Seite stellen wir besonders da, denn sie ist sehr wichtig. */
+ font-size: 3em;
+ line-height: 0.8em;
+ padding: 30px 0 15px 0%;
+ margin: 0;
+ border-bottom: 4px solid #dddddd;
+}
+
+.iright {
+ margin: 0 0 0 530px;
+}

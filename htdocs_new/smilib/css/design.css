@@ -1,0 +1,252 @@
+/* -- Allgemeines -- */
+body {
+ background: #dddddd; /*  Hintergrundfarbe */
+ color: black;
+ margin: 0;
+ padding: 1%; /* Seitenabstand, um den Eindruck eines Blattes zu erwecken*/
+ min-width: 640px; /* Bei weniger als 640px --> Scrollbalken */
+ font-size: 100.01%; /* umgeht Font-Size-Bug im Safari, älteren Operas und IE */
+ font-family: verdana, arial, sans-serif ;
+}
+a { color: #336699; text-decoration: none; } /* Grundfarbe der Links: Blau */
+
+a:hover {
+ color: #8899aa; /* Farbe beim darüberfahren: Graublau */
+}
+a:visited { color: #8899aa; } /* Besuchte Links werden schwarz */
+.skip {
+ position: absolute;
+ margin-left: -10000px;
+}
+h1 { /* Große Überschriften */
+ font-size: 3em;
+ line-height: 1.3em;
+ padding: 30px 0 15px 0;
+ margin: 0;
+ border-bottom: 4px solid #dddddd;
+}
+h1, h2, h3, h4, h5, h6 { /* Alle Überschriften */
+ color: black;
+ padding: 15px 0 0 0;
+ float: none;
+ font-family: Georgia, "Times New Roman", Times, serif, sans-serif;
+}
+img { /* Formatierung der Bilder */
+ padding: 1px;
+ max-width: 95%; /* Um immer im Rahmen des Designs zu bleiben, funktioniert nicht beim IE */
+}
+
+.imgborder { /* Formatierung der Bilder */
+border: 1px solid #dddddd;
+}
+
+br.clearIt {
+ clear:both;
+}
+
+
+sup {
+ position: relative;
+ top: 0ex;
+ font-size: 50%;
+ vertical-align: top;
+}
+
+
+sup.special {
+ position: relative;
+ line-height: 30px;
+ top: 1ex;
+ font-size: 40%;
+ vertical-align: top;
+}
+
+.addPaddingBottom {
+  padding-bottom: 15px;
+}  
+
+
+.fleft { /* Textfluss rechts, Bild links */
+ margin: 0 1em 0.2em 0; /* Man sollte einen schönen Abstand wählen sonst kleben die Sachen so am Text. */
+ padding: 5px;
+ float: left;
+}
+.fright { /* Textfluss links, Bild rechts */
+ margin: 0.2em 0 0.2em 1em;
+ padding: 5px;
+ float: right;
+}
+.borderTop {
+  border-top: 1px solid #dddddd;
+}
+.higher {
+
+ font-size: 0.4em;
+ position:relative;
+ vertical-align: text-top;
+}
+
+/* Layout */
+#container { /* Grundcontainer */
+ background: #F5F5F5;
+ font-size: 0.9em;
+ max-width: 900px; /* Max 900px Breite */
+ min-height: 800px; /* Min 800px Höhe */
+ margin: auto; /* Zentrierung der Seite */
+ border: 1px solid black;
+ border-top: 0px;
+}
+
+/* Kopfleiste */
+#logo {
+ background: url(../img/modlabBanner2.jpg) 0 0 no-repeat white; /* Logobild */
+ height: 89px; /* Wird auf die Höhe des Logobildes skaliert */
+ padding: 0 10px;
+ text-align: right;
+ line-height: 89px;
+ font-size: 65px;
+ overflow: hidden;
+ letter-spacing: -2px;
+}
+/* Logofarbe vorne */
+#logo a {
+ color: #CC0000; /* Logofarbe vorne */
+ font-weight: bold;
+ text-decoration: none;
+}
+/* Logofarbe hinten */
+#logo a span {
+ color: black;
+ background: white;
+ font-weight: normal;
+ padding-right: 0.1em;
+}
+#logo a span.higher {
+ font-size: 0.4em;
+ position:relative;
+ vertical-align: top;
+ padding-bottom: 5px;
+}
+
+
+/* Menübalken, oben */
+#menu {
+ background: url(../img/wechselschatten3.png) #287635;
+ padding: 5px 5%; /* Bei Verkleinerung des Fensters schrumpfen die Abstände links und rechts. */
+ margin: 0;
+ text-align: left;
+ color: #C9C299; /* Farbe des inaktiven Menüpunktes */
+ font-weight: bold;
+}
+/* Formatierung der Menüpunkte */
+#menu li {
+ font-size: 1.0em;
+ display: inline; /* Menüpunkte werden nebeinander angeordnet */
+ list-style-type: none; /* Bulletpoints werden abgeschaltet. */
+ border-left: 2px solid white; /* Ein optischer Trennungsstrich */
+ padding: 0 10px 0 15px;
+}
+/* Aktive Links */
+#menu li a {
+ color: white;
+ text-decoration: none;
+}
+
+/* Subnavigation */
+#subnav {
+ width: 26%; /* Bei Verkleinerung des Fensters schrumpft die Subnav. */
+ min-width: 10em; /* Sie schrumpft minimal so breit. */
+ float: left;
+ background-color: #F5F5F5;
+ padding: 10px;
+ margin: 00px 0 0% 1%;
+ font-size: 0.8em;
+}
+/* Überschriften der Subnavigation */
+#subnav dt {
+ font-size: 1.0em;
+ font-family: Georgia, "Times New Roman", Times, serif;
+ padding: 0.1em;
+ margin-top: 0em;
+ border-top: 1px dotted #ccccaa; /* Trennlinie zwischen den einzelnen Bereichen der Subnavigation. */
+}
+/* Unterpunkte der Subnavigation. */
+#subnav dd {
+ padding: 0.2em;
+ margin: 0.1em 0.2em; }
+/* Links der Subnavigation. */
+
+#subnav a {
+    display:block;
+    font-size: 1.0em;
+    padding: 0.3em;
+    text-decoration: none; 
+    font-weight: bold;
+    border: 1px solid #C9C299;
+    color: maroon;
+}
+/* Overeffekt der Links */
+#subnav a:hover {
+    color: black;
+    background-color:  	#C9C299;
+}
+/* Kleine Links der Subnavigation. */
+#subnav a.small {
+    display:block;
+    font-size: 0.8em;
+    padding: 0em;
+    text-decoration: none; 
+    font-weight: bold;
+    border: none;
+    color: #336699;
+}
+/* Kleine Links der Subnavigation: Overeffekte */
+#subnav a.small:hover {
+    color: #8899aa; 
+    background-color: #F5F5F5;
+} 
+#subnav a.image {
+  border: none;
+  color: #F5F5F5;
+}
+#subnav a.image:hover {
+  background-color: #F5F5F5;
+}
+
+/* Hauptinhalt */
+#main {
+ min-height: 670px;
+ padding: 2em 20px 1em 2%;
+ margin-left: 30%;
+ background-color: white;
+ line-height: 1.5em;
+ font-size: 0.8em;
+}
+
+#main span {
+ font-weight: bold;
+}
+
+/* Für die "top"-Links */
+#main a.right {
+ margin: 0 0 0 92%;
+ color: #336699;
+ font-weight: bold;
+ padding: 1px;
+ padding-right: 6px;
+ padding-left: 6px;
+ border: 1px solid #C9C299;
+}
+/* Overeffekt für die "top"-Links */
+#main a.right:hover {
+ color: black;
+ background-color: #C9C299;
+}
+/* Klasse für die Anker-Links (Zwischenüberschriften) */
+#main a.anchor {
+  color: maroon;
+  float: none;
+}
+
+
+

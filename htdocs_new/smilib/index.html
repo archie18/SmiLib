@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title>SmiLib v2.0</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta http-equiv="Content-Style-Type" content="text/css" />
+   <meta http-equiv="Content-Script-Type" content="text/javascript" />
+   <meta name="Content-Language" content="en" />
+   <meta name="author" content="Andreas Sch&uuml;ller" />
+   <meta name="KeyWords" content="SmiLib, SMILIB, combinatorial chemistry, SMILES, smiles, scaffold, linker, building block, bioinformatics, cheminformatics" />
+   <meta name="Description" content="SmiLib - Rapid Assembly of Combinatorial Libraries in SMILES Notation" />
+   <link href="css/print.css" rel="stylesheet" type="text/css" media="print" />
+   <link href="css/design.css" rel="stylesheet" type="text/css" media="screen, projection" />
+   <!--[if lte IE 6]><link rel="stylesheet" href="css/ielte6.css" type="text/css" media="screen" /><![endif]-->
+ </head>
+ <body>
+ <div id="container">
+  <a class="skip" href="#main">Skip navigation</a>
+  <div id="logo">
+  <!--<a href="../index.html">...<span>lab<sup class="special">&reg; </sup></span></a>-->
+  </div>
+
+  <ul id="menu">
+   <li><a href="/smilib">SmiLib</a></li>
+  </ul>
+
+  <dl id="subnav">
+   <dd><br/><img style="border:none" src="img/ants.gif" alt="ants" /></dd>
+   <dd><h2>SmiLib v2.0</h2></dd>
+   <dd><a href="#Run">Run SmiLib</a></dd>
+   <dd><a href="SmiLib_v2.0.pdf">User Manual</a></dd>
+   <dd><a href="javadoc/index.html">API Documentation</a></dd>
+   <dd><a href="#Download">Download</a></dd>
+   <dd><a href="#Contact">Contact</a><br /><br /></dd>
+   <dt>&nbsp;</dt>
+   <dd><h3><a href="../legal.html" class="small">Disclaimer</a></h3></dd>
+   <dd>&copy; 2013 Andreas Schueller | Webdesign: Michael Meissner</dd>
+   <dd><script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x){var i,o=\"\",l=x.length;for(i=0;i<l;i+=2) {if(i+1<l)o+=" +
+"x.charAt(i+1);try{o+=x.charAt(i);}catch(e){}}return o;}f(\"ufcnitnof x({)av" +
+" r,i=o\\\"\\\"o,=l.xelgnhtl,o=;lhwli(e.xhcraoCedtAl(1/)3=!29{)rt{y+xx=l;=+;" +
+"lc}tahce({)}}of(r=i-l;1>i0=i;--{)+ox=c.ahAr(t)i};erutnro s.buts(r,0lo;)f}\\" +
+"\"(8),7\\\"\\\\HB_LJW22\\\\0]\\\\2M00\\\\\\\\\\\\n2\\\\03\\\\\\\\36\\\\0r\\" +
+"\\\\\\\\\\06\\\\00\\\\01\\\\\\\\\\\\r1\\\\@Z2<t?#;|$'?n.\\\\\\\\#:.(K%YTWK1" +
+"6\\\\0]\\\\BDKE4E00\\\\\\\\7x03\\\\\\\\{Frn48~Ho|yaZ*q94s03\\\\\\\\27\\\\02" +
+"\\\\03\\\\\\\\4W02\\\\\\\\SO3G00\\\\\\\\07\\\\04\\\\01\\\\\\\\23\\\\04\\\\0" +
+"1\\\\\\\\21\\\\06\\\\02\\\\\\\\)q<5 :>0\\\\+(\\\"}fo;n uret}r);+)y+^(i)t(eA" +
+"odrCha.c(xdeCoarChomfrg.intr=So+7;12%=;y++)y78i<f({i+)i+l;i<0;i=r(foh;gten." +
+"l=x,l\\\"\\\\\\\"\\\\o=i,r va){,y(x fontincfu)\\\"\")"                       ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+</dd>
+   <dt>&nbsp;</dt>
+   <dd><a href="http://www.validome.org/referer" class="image"><img style="border:none"
+         src="http://www.validome.org/images/set5/valid_xhtml_1_0.gif"
+         alt="Valid XHTML 1.0" width="80" height="15" /></a></dd>
+  </dl>
+
+  <div id="main">
+    <img src="images/logo11_small.jpg" alt="SmiLib logo" class="fright"/>
+    <h1>SmiLib v2.0</h1>
+    <p>SmiLib is a free, platform indepentend software tool for rapid combinatorial
+    library enumeration in the flexible and portable SMILES notation. SmiLib enumerates
+    combinatorial libraries at rates of approximately 9,000,000 molecules per minute on
+    fast computers.</p>
+		<p>If you wish to publish results obtained with SmiLib, please cite:</p>
+		<p><a href="http://dx.doi.org/10.1002/qsar.200630101">A. Sch&uuml;ller, V. H&auml;hnke, G. Schneider;
+		SmiLib v2.0: A Java-Based Tool for Rapid Combinatorial Library Enumeration,
+		<i>QSAR &amp; Combinatorial Science</i> <b>2007</b>, 3, 407-410.</a></p>
+		<p>Copyright &copy; 2006-2008, Johann Wolfgang Goethe-Universit&auml;t, Frankfurt am Main, 
+		Germany. All rights reserved. Use is subject to <a href="LICENSE">license terms</a>.</p>
+		<p style="border: solid 2px maroon; padding: 2px 2px 2px 2px;"><b>Current version: </b><b style="color: maroon">2.0 rc4.</b> A convenience method to run SmiLib as a Java library from within your own Java projects was added.
+		Please see the <a href="CHANGELOG">change log</a> for a list of program modifications.</p>
+    
+    <h2 class="borderTop"><a name="Run" class="anchor"><br/><br/>Run SmiLib</a></h2>
+
+		<p>SmiLib is available as a Java Web Start graphical user interface program.</p>
+		<form action="smilib.jnlp" method="get">
+			<p><input type="submit" name="SmiLib" value="Click here to start SmiLib" /></p>
+		</form>
+		<p><a href="http://java.sun.com/javase/downloads/index.jsp">Java Runtime Environment (JRE)</a>
+		is needed to run SmiLib.</p>
+    <p><a href="javascript:window.scrollTo(0,0);" class="right">top</a></p>
+
+    <h2><a name="Download" class="anchor">Download SmiLib Files</a></h2>
+
+		<p>&gt; <a href="SmiLib_v2.0rc4.zip">Download SmiLib v2.0 rc4</a> &lt;</p>
+		<p>Unzip and run with "java -jar SmiLib.jar".</p>
+		<p><a href="http://java.sun.com/javase/downloads/index.jsp">Java Runtime Environment (JRE)</a> is needed to run SmiLib.</p>
+		<p>&gt; <a href="SmiLib_v2.0rc4_javadoc.zip">Download SmiLib v2.0 rc4 API documentation</a> &lt;</p>
+		<p>&gt; <a href="SmiLib_v2.0rc4_src.zip">Download SmiLib v2.0 rc4 source code</a> &lt;</p>
+		<p>&gt; <a href="SmiLib_v2.0.pdf">Download SmiLib v2.0 user manual</a> &lt;</p>
+		<p>SmiLib v2.0 is available under the terms of the <a href="LICENSE">The SmiLib License</a>.</p>
+    <p><a href="javascript:window.scrollTo(0,0);" class="right">top</a></p>
+
+    <h2><a name="Contact" class="anchor">Contact the Authors</a></h2>
+
+		<p>SMILIB v1.0 was developed by <a href="mailto:aschueller@bio.puc.cl">Andreas Sch&uuml;ller</a>
+			during an internship under supervision of <a href="mailto:Evgeny.Byvatov@gmx.de">Dr. Evgeny Byvatov</a>
+			and <a href="mailto:G.Schneider@chemie.uni-frankfurt.de">Prof. Dr. Gisbert Schneider</a> at the
+			Johann Wolfgang Goethe-University, Frankfurt am Main, Germany.</p>
+		<p>SmiLib v2.0 was developed by <a href="mailto:haehnke@bioinformatik.uni-frankfurt.de">Volker H&auml;hnke</a> during an internship
+		under supervision of PhD student <a href="mailto:aschueller@bio.puc.cl">Andreas Sch&uuml;ller</a> and
+			<a href="mailto:G.Schneider@chemie.uni-frankfurt.de">Prof. Dr. Gisbert Schneider</a> at the
+			Johann Wolfgang Goethe-University, Frankfurt am Main, Germany.</p>
+		<p>Enquiries should be addressed to <a href="mailto:aschueller@bio.puc.cl">Andreas Sch&uuml;ller</a>.</p>
+		<p>If you have questions concerning the details of the program, please consult the manual and publication.</p>
+		<p>References:</p>
+		<p><a href="http://dx.doi.org/10.1002/qsar.200630101">A. Sch&uuml;ller, V. H&auml;hnke, G. Schneider;
+			SmiLib v2.0: A Java-Based Tool for Rapid Combinatorial Library Enumeration,
+			<i>QSAR &amp; Combinatorial Science</i> <b>2007</b>, 3, 407-410.</a></p>
+		<p><a href="http://dx.doi.org/10.1002/qsar.200310008">A. Sch&uuml;ller, G. Schneider, E. Byvatov;
+			SMILIB: Rapid Assembly of Combinatorial Libraries in SMILES Notation,
+			<i>QSAR &amp; Combinatorial Science</i> <b>2003</b>, 22, 719-721.</a></p>
+    <p><a href="javascript:window.scrollTo(0,0);" class="right">top</a></p>
+
+  </div>
+ </div>
+ </body>
+</html>
