@@ -358,7 +358,7 @@ public class SmiLibTest extends TestCase {
           String convertedResultingSmiles = null;
           String convertedExpectedSmiles = null;
           try {
-              System.out.println("resulting SMILES: " + oneResultingSmiles);
+//              System.out.println("resulting SMILES: " + oneResultingSmiles);
               convertedResultingSmiles = TestUtils.convertWithOpenBabelToInChI(oneResultingSmiles);
 //              convertedResultingSmiles = TestUtils.convertWithOpenBabelToSdf(oneResultingSmiles);
 //              convertedResultingSmiles = TestUtils.convertWithOpenBabelFromSdfToInChI(convertedResultingSmiles);
@@ -367,7 +367,7 @@ public class SmiLibTest extends TestCase {
               fail("Error executing OpenBabel with SMILES " + oneResultingSmiles + " with index " + i + ".");
           }
           try {
-            System.out.println("expected SMILES: " + expectedSmiles[i]);
+//            System.out.println("expected SMILES: " + expectedSmiles[i]);
               convertedExpectedSmiles = TestUtils.convertWithOpenBabelToInChI(expectedSmiles[i]);
 //              convertedExpectedSmiles = TestUtils.convertWithOpenBabelToSdf(expectedSmiles[i]);
 //              convertedExpectedSmiles = TestUtils.convertWithOpenBabelFromSdfToInChI(convertedExpectedSmiles);
