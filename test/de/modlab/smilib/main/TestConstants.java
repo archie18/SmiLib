@@ -177,18 +177,24 @@ public class TestConstants {
   public static final String openBableCommandlineWinSdfToSmiles = "./openbabel/babel.exe -isdf -osmi";
   
   public static final String openBabelComanndlineLinuxSdfToSmiles = "./openbabel/babel -isdf -osmi";
+
+//  public static final String[] openBabelEnvironment = { "LD_LIBRARY_PATH=./openbabel" };
+  public static final String[] openBabelEnvironment = null;
   
   /** Expected resulting SMILES from validScaffolds/validLinkers/validBuildingBlocks/validReactionScheme processing. */
   public static final String[] expectedValidSmiles = new String[] {
-    "C[C@H](NC1CCCCC1)C(=O)O",	
-    "OC(=O)[C@@](C)(N)OC1CCCCC1",
-    "OC(=O)[C@](C)(N)OC1CCCCC1",
-    "C[C@@](N)(F)C(=O)O",
-    "C[C@](F)(Br)C(=O)O",
-    "C[C@@](F)(Br)C(=O)O",
-    "C[C@](F)(Br)C(=O)O",
-    "C[C@](N)(CCCC)C(=O)OCl",
-    "C[C@](Cl)(CCCC)C(=O)O",
+    // The current version of OpenBabel (Open Babel 2.3.2 -- Jan 21 2014 -- 23:20:08)
+    // generates the chiral SMILES in a different order, but still chemically
+    // equivalent.
+    "C[C@@H](C(=O)O)NC1CCCCC1", // Equivalent: "C[C@H](NC1CCCCC1)C(=O)O"
+    "OC(=O)[C@](OC1CCCCC1)(N)C", // Equivalent: "OC(=O)[C@@](C)(N)OC1CCCCC1"
+    "OC(=O)[C@@](OC1CCCCC1)(N)C", // Equivalent: "OC(=O)[C@](C)(N)OC1CCCCC1"
+    "C[C@](C(=O)O)(F)N", // Equivalent: "C[C@@](N)(F)C(=O)O"
+    "C[C@@](C(=O)O)(Br)F", // Equivalent: "C[C@](F)(Br)C(=O)O"
+    "C[C@](C(=O)O)(Br)F", // Equivalent: "C[C@@](F)(Br)C(=O)O"
+    "C[C@@](C(=O)O)(Br)F", // Equivalent: "C[C@](F)(Br)C(=O)O"
+    "C[C@@](C(=O)OCl)(CCCC)N", // Equivalent: "C[C@](N)(CCCC)C(=O)OCl"  
+    "C[C@@](C(=O)O)(CCCC)Cl", // Equivalent: "C[C@](Cl)(CCCC)C(=O)O"
     "CCCCCl",
     "CCCCCl",
     "CCCCOCl",

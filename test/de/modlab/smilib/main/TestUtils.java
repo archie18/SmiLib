@@ -88,7 +88,7 @@ public class TestUtils {
     //System.out.println("OpenBabel command line: '" + openBabelCommandline + "'");
     //System.out.println("Before: '" + smiles + "'");
     Process process;
-    process = Runtime.getRuntime().exec(openBabelCommandline);
+    process = Runtime.getRuntime().exec(openBabelCommandline, TestConstants.openBabelEnvironment);
     PrintStream toProcess = new PrintStream(new BufferedOutputStream(process.getOutputStream()));
     toProcess.println(smiles);
     toProcess.close();

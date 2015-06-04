@@ -178,6 +178,9 @@ public class SmiLibTest extends TestCase {
                     ex.printStackTrace();
                     fail("Error executing OpenBabel with SMILES " + smiles + " with index " + i + ".");
                 }
+//                System.out.println(smiles);
+//                System.out.println(TestConstants.expectedValidSmiles[i]);
+//                System.out.println(convertedSmiles);
                 assertEquals(i + ": " + TestConstants.expectedValidSmiles[i] + " == " + convertedSmiles, TestConstants.expectedValidSmiles[i], convertedSmiles);
 //            }
         }
