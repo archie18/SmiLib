@@ -593,7 +593,7 @@ public class SmiLibTest extends TestCase {
             fail("Unexpected exception was thrown: " + ex.getMessage());
         }
         
-        System.out.println(Arrays.toString(lines));
+//        System.out.println(Arrays.toString(lines));
         if (lines.length != expectedResult.length)
             fail("Read " + lines.length + " lines but expected " + expectedResult.length + ".");
         
