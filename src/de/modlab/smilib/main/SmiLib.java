@@ -55,7 +55,7 @@ import org.apache.commons.cli.HelpFormatter;
  *       building_blocks.smi] [-h] [-y] [-c] [-r reaction_scheme.txt] [-f<br>
  *        lib.smi/lib.sdf] [-l linkers.smi]<br>
  * ----------------------------------------------------------------------<br>
- * SmiLib v2.0 rc4<br>
+ * SmiLib v2.0 rc5<br>
  * by Volker Haehnke, Andreas Schueller,<br>
  * Dr. Evgeny Byvatov and Prof. Dr. Gisbert Schneider<br>
  * Copyright (c) 2006, Johann Wolfgang Goethe-Universitaet, Frankfurt am<br>
