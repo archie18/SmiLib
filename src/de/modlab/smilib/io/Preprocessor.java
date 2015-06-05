@@ -44,7 +44,7 @@ import java.util.Arrays;
 public class Preprocessor {
     
     //symbols that indicate the begin of a new atom; needs to be sorted as by Arrays.sort()
-    private char[]      atomClosingSymbols = {'#', '(', '*', '/', '=', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', 'c'};
+    private char[]      atomClosingSymbols = {'#', '(', '*', '.', '/', '=', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', 'c'};
     
     //symbols allowed in a [R]- or [A]-group; needs to be sorted as by Arrays.sort()
     private char[]      symbolsAllowedInSMILIBGroup = {'%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'R', '[', ']'};
@@ -94,6 +94,7 @@ public class Preprocessor {
                 !returnSmiles.equals("([R])([A])")  ) {
             returnSmiles = performPreprocessing1(returnSmiles);
             returnSmiles = performPreprocessing2(returnSmiles);
+            returnSmiles = performPreprocessing3(returnSmiles);
         }
         return returnSmiles;
     }
@@ -138,12 +139,18 @@ public class Preprocessor {
     
     
     /**
-     * Modifies SMILES not to start with a SmiLibGroup
+     * Modifies SMILES not to start with a SmiLibGroup.
      * If SMILES starts with a site of variability like [R1] or [A]
      * the SMILES is modified the way that the SmiLibGroup switches position with the next atom.<br>
      * Example:<br>
      * <tt>[R1]CC -> C([R1])C</tt><br><br>
-     * This preprocessing is necessary in order to have all SmiLibGroups being preceded by atoms only.
+     * This preprocessing is necessary in order to have all SmiLibGroups being preceded by atoms only.<br>
+     * <br>
+     * In addition, SMILES are not allowed to start with a site of variability after a dot '.', in
+     * order to permit dot-disconnected starting materials.<br>
+     * Example:<br>
+     * <tt>C1.[R1]C1C -> C1.C1([R1])C</tt>
+     * 
      */
     private String performPreprocessing1(String smi) {
         if ((smi.startsWith("[R") & !smi.startsWith("[Rb") &                            //SMILES starts with variable chain [R...]
@@ -161,6 +168,17 @@ public class Preprocessor {
             }
             
             currentPosition++;                                                          //first position after SmiLib-Group
+
+            while (smi.charAt(currentPosition) == '(') {                                // Skip parenthesis groups (..)
+                currentPosition++;
+                while (smi.charAt(currentPosition) != ')') {
+                        currentPosition++;
+                }
+            }
+            if (smi.charAt(currentPosition) == ')') {
+                currentPosition++;
+            }
+
             firstAtomStart = currentPosition;                                           //position where the atom starts, that will become first atom of the SMILES
             
             if (smi.charAt(currentPosition) == '[') {                                   //maybe the first atom has some information like chirality etc., so it could be  in [...]
@@ -171,10 +189,10 @@ public class Preprocessor {
             } else {                                                                    //the new first atom is a normal atom, so it has max. 2 digits and maybe ringinformation
                 currentPosition++;                                                      //index where next atom starts
                 while (currentPosition < smi.length() &&                                //start of the next atom will be found
-                        !match(smi.charAt(currentPosition),atomClosingSymbols)) {
+                        !match(smi.charAt(currentPosition), atomClosingSymbols)) {
                     currentPosition++;
                 }
-                firstAtomEnd = currentPosition;                                         //index, whre next atom ends (remember: endIndex is exclusive!)
+                firstAtomEnd = currentPosition;                                         //index, where next atom ends (remember: endIndex is exclusive!)
             }
             temp = new StringBuilder();
             temp.append(smi.substring(firstAtomStart, firstAtomEnd)).append('(').append(smi.substring(0, firstAtomStart)).append(')').append(smi.substring(firstAtomEnd, smi.length()));
@@ -182,7 +200,37 @@ public class Preprocessor {
         }
         return smi;
     }
-    
+        
+    /**
+     * Modifies SMILES not to have a SmiLibGroup after a dot symbol.
+     * SMILES are not allowed to have a site of variability after a dot symbol
+     * ('.'), in order to permit dot-disconnected starting materials.<br>
+     * <br>
+     * Example:<br>
+     * <tt>C1.[R1]C1C -> C1.C1([R1])C</tt>
+     * 
+     */
+    private String performPreprocessing2(String smi) {
+        // Initialize variables
+        int dotPosition;
+        int startPosition = 0;
+
+        // Check if SMILES contains a bracket following a dot symbol
+        while ((dotPosition = smi.indexOf(".[", startPosition)) != -1) {
+            // Run "performPreprocessing1()" on the substring starting after the dot symbol
+            String processedSubstring = performPreprocessing1(smi.substring(dotPosition + 1, smi.length()));
+            
+            // Replace processed part of the SMILES string
+            temp = new StringBuilder();
+            temp.append(smi.substring(0, dotPosition + 1)).append(processedSubstring);
+            smi = temp.toString();
+            
+            // Update startPosition
+            startPosition = dotPosition + 1;
+        }
+
+        return smi;
+    }    
     
     /**
      * Preprocessing: Modifies SMILES to have no R/A-group following a bracket
@@ -193,7 +241,7 @@ public class Preprocessor {
      * <tt>C(C)[R1] -> C([R1])(C)</tt><br><br>
      * This preprocessing is necessary in order to have all R-groups being preceded by atoms only.
      */
-    private String performPreprocessing2(String smi) {
+    private String performPreprocessing3(String smi) {
         int currentPosition = 0;
         int roundBracketOpen = 0;
         int roundBracketClose = 0;

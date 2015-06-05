@@ -1,0 +1,4 @@
+[A][R]
+[A][R]
+[A]C(=O)[C@H](CCCNC(=O)C1=NC=CN=C1)N[R]
+[A][R]

@@ -502,6 +502,109 @@ public class SmiLibTest extends TestCase {
             assertEquals(i + ": " + expectedResult[i] + " == " + lines[i], expectedResult[i], lines[i]);
         }
     }
+    
+    /**
+     * Test to reproduce a bug that occurred to Xiao Jiajie when trying to use
+     * dot-disconnected starting materials.
+     * <pre>
+     * Subject: Re: making macrocycle via smilib2 Date: Fri, 27 Mar 2015
+     * 18:48:50 -0400 From: Xiao, Jiajie <xiaoj12@wfu.edu>
+     * To: Andreas Schüller <aschueller@bio.puc.cl>
+     * 
+     * Hi Andreas,
+     *
+     * Thank you very much for your prompt reply. You suggestion pointed out a
+     * new way to achieve my goal.      
+     * I tried to apply similar rule in my case. However, for unknown reasons,
+     * the product SMILES string seems to be wrong somehow. Here are the
+     * information about the involved molecules:
+     * 
+     * The final products I want to get are thousands of macrocyles. Each of
+     * them in the library is composed of 4 "codons", for example, the attached
+     * macrocyle below contains the codon D7 in black, codon A11 in red, codon
+     * B1 in blue and codon C5 in green.
+     * Inline image 1
+     *
+     * To make get this molecule via SmiLib, I firstly generated a chain
+     * D7.A11_B1 with following SMILES strings.
+     *
+     * Scaffold (D7): [R1]NCC[C@H](NC(=O)C=O)C(=O)N%99 Linker (A11):
+     * [A]OC(=O)[C@H](CCCNC(=O)C1=NC=CN=C1)N[R] Building Block (B1):
+     * [Y]NC(CC1=CC=CO1)C(=O)O[A] (Note: N%99 and [Y] both refer to the
+     * attachment points to C5. I'll replace Y with a r-group after obtaining
+     * the intermediate product D7-A11-B1).
+     *
+     *
+     * This gave me:
+     *
+     * N%11CC[C@H](NC(=O)C=O)C(=O)N%99.O%11C(=O)[C@H](CCCNC(=O)C1=NC=CN=C1)N%10.[Y]NC(CC1=CC=CO1)C(=O)O%10
+     *
+     *
+     * Now I replace Y with R1 as I'm going to treat the intermediate product I
+     * got as the new scaffold in the next step. Thus the 2nd concatenation
+     * round is
+     *
+     * Scaffold (D7-A11-B1):
+     * N%11CC[C@H](NC(=O)C=O)C(=O)N%99.O%11C(=O)[C@H](CCCNC(=O)C1=NC=CN=C1)N%10.[R1]NC(CC1=CC=CO1)C(=O)O%10
+     * Linker (empty linker): [A][R] BB (C5): C%99C(=O)N[C@@H](CC1CC1)C([A])=O
+     *
+     *
+     * This results the product as
+     * N%11CC[C@H](NC(=O)C=O)C(=O)N%99.O%11C(=O)[C@H](CCCNC(=O)C1=NC=CN=C1)N%10.%12NC(CC1=CC=CO1)C(=O)O%10.C%99C(=O)N[C@@H](CC1CC1)C%12=O
+     *
+     *
+     * According to what your suggested in last email and the rules of SMILES,
+     * N%99 and C%99 are expected to connected, right?
+     *
+     * However, this result can't be correctly recognized by software such as
+     * MarvinSketch and openBabel. Do you think there are something wrong so
+     * that I can't get what I like the your example did?
+     * Thank you very much for your reply and suggestion again.
+     *
+     * Best,
+     *
+     * Jiajie
+     * </pre>
+     */
+    public void testMainXiaoJiajie() {
+        System.out.println("testMainXiaoJiajie - Permit dot-disconnected starting materiales");
+        
+        String commandLine = "-s " + TestConstants.xiaoScaffold + " -l " + TestConstants.xiaoLinker + " -b " + TestConstants.xiaoBuildingBlocks + " -r " + TestConstants.xiaoReactionScheme + " -f " + "./out.txt";
+//        System.out.println(commandLine);
+        String[] args = commandLine.split(" ");
+        
+        String[] expectedResult = null;
+        try {
+            File expFile = new File(TestConstants.xiaoExpectedResult);
+            expectedResult = TestUtils.readFile(expFile).toArray(new String[0]);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail("Unexpected exception was thrown: " + ex.getMessage());
+        }
+        
+        SmiLib.main(args);
+        String[] lines = null;
+        try {
+            File outFile = new File("./out.txt");
+            TestUtils.waitForSmiLib(outFile);
+            lines = TestUtils.readFile(outFile).toArray(new String[0]);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail("Unexpected exception was thrown: " + ex.getMessage());
+        }
+        
+        System.out.println(Arrays.toString(lines));
+        if (lines.length != expectedResult.length)
+            fail("Read " + lines.length + " lines but expected " + expectedResult.length + ".");
+        
+        if (lines.length == 0)
+            fail("Read zero lines.");
+        
+        for (int i = 0; i < lines.length; i++) {
+            String smiles = lines[i].split("\t")[1];
+            assertEquals(i + ": " + expectedResult[i] + " == " + smiles, expectedResult[i], smiles);
+        }
+    }
 
   public static void main(java.lang.String[] argList) {
     junit.textui.TestRunner.run(suite());

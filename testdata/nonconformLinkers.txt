@@ -5,3 +5,4 @@
 CCCCCC
 [A]O[R2]
 [A1]O[R]
+[R1]([A])CC

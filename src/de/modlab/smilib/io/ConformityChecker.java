@@ -52,7 +52,10 @@ public class ConformityChecker {
     private char[]             ringSymbols = {'%', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     
     //symbols indicating connection to an other atom by atom symbol
-    private char[]             atomSymbols = {'*', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'c'};
+    private char[]             atomSymbols = {'*', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'c', 'n', 'o', 's', 'r', 'l'};
+    
+    //symbols indicating the start of another atom
+    private char[]             atomStartSymbols = {'(', '[', '*', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'c', 'n', 'o', 's'};
     
     //symbols indicating an explicit single bond
     private char[]             singleBondSymbols = {'-', '/', '\\'};
@@ -160,22 +163,29 @@ public class ConformityChecker {
      *@throws SmiLibConformityException thrown if SMILES is not conform to SmiLib restrictions
      */
     private void checkBondCount(String smiles, int mode) throws SmiLibConformityException {
-        switch (mode) {
-            
-            //scaffold
-            case 0:
-                this.checkBondCountForRGroups(smiles);
-                break;
-                
+        // Check bond count for each dot-disconnected part
+        String[] parts = smiles.split("\\.");
+        if (parts.length == 0) {
+            parts = new String[]{ smiles };
+        }
+        for (String part: parts) {
+            switch (mode) {
+
+                //scaffold
+                case 0:
+                    this.checkBondCountForRGroups(part);
+                    break;
+
                 //linker
-            case 1:
-                this.checkBondCountForRGroups(smiles);
-                this.checkBondCountForAGroup(smiles);
-                break;
-                
+                case 1:
+                    this.checkBondCountForRGroups(part);
+                    this.checkBondCountForAGroup(part);
+                    break;
+
                 //building block
-            case 2:
-                this.checkBondCountForAGroup(smiles);
+                case 2:
+                    this.checkBondCountForAGroup(part);
+            }
         }
     }
     
@@ -395,32 +405,41 @@ public class ConformityChecker {
                     }
                     
                     //two direct bonds to implicit to atoms, specified by '-' or to side chains with (...)
-                    if (!smilesStartsWithGroup & !smilesEndsWithGroup) {
-                        if (    (match(smiles.charAt(index-1), atomSymbols) & match(smiles.charAt(index+groupLength), atomSymbols)) ||
-                                (match(smiles.charAt(index-1), atomSymbols) & match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
-                                (match(smiles.charAt(index-1), atomSymbols) & smiles.charAt(index+groupLength) == '(') ||
-                                (match(smiles.charAt(index-1), atomSymbols) & smiles.charAt(index+groupLength) == '[') ||
+                    if (!smilesStartsWithGroup && !smilesEndsWithGroup) {
+                        if (    (match(smiles.charAt(index-1), atomSymbols) && match(smiles.charAt(index+groupLength), atomSymbols)) ||
+                                (match(smiles.charAt(index-1), atomSymbols) && match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
+                                (match(smiles.charAt(index-1), atomSymbols) && smiles.charAt(index+groupLength) == '(') ||
+                                (match(smiles.charAt(index-1), atomSymbols) && smiles.charAt(index+groupLength) == '[') ||
                                 
-                                (match(smiles.charAt(index-1), singleBondSymbols) & match(smiles.charAt(index+groupLength), atomSymbols)) ||
-                                (match(smiles.charAt(index-1), singleBondSymbols) & match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
-                                (match(smiles.charAt(index-1), singleBondSymbols) & smiles.charAt(index+groupLength) == '(') ||
-                                (match(smiles.charAt(index-1), singleBondSymbols) & smiles.charAt(index+groupLength) == '[') ||
+                                (match(smiles.charAt(index-1), singleBondSymbols) && match(smiles.charAt(index+groupLength), atomSymbols)) ||
+                                (match(smiles.charAt(index-1), singleBondSymbols) && match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
+                                (match(smiles.charAt(index-1), singleBondSymbols) && smiles.charAt(index+groupLength) == '(') ||
+                                (match(smiles.charAt(index-1), singleBondSymbols) && smiles.charAt(index+groupLength) == '[') ||
                                 
-                                (smiles.charAt(index-1) == ')' & match(smiles.charAt(index+groupLength), atomSymbols)) ||
-                                (smiles.charAt(index-1) == ')' & match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
-                                (smiles.charAt(index-1) == ')' & smiles.charAt(index+groupLength) == '(') ||
-                                (smiles.charAt(index-1) == ')' & smiles.charAt(index+groupLength) == '[') ||
+                                (smiles.charAt(index-1) == ')' && match(smiles.charAt(index+groupLength), atomSymbols)) ||
+                                (smiles.charAt(index-1) == ')' && match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
+                                (smiles.charAt(index-1) == ')' && smiles.charAt(index+groupLength) == '(') ||
+                                (smiles.charAt(index-1) == ')' && smiles.charAt(index+groupLength) == '[') ||
                                 
-                                (smiles.charAt(index-1) == '(' & match(smiles.charAt(index+groupLength), atomSymbols)) ||
-                                (smiles.charAt(index-1) == '(' & match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
-                                (smiles.charAt(index-1) == '(' & smiles.charAt(index+groupLength) == '(') ||
-                                (smiles.charAt(index-1) == '(' & smiles.charAt(index+groupLength) == '[') ||
+                                (smiles.charAt(index-1) == '(' && match(smiles.charAt(index+groupLength), atomSymbols)) ||
+                                (smiles.charAt(index-1) == '(' && match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
+                                (smiles.charAt(index-1) == '(' && smiles.charAt(index+groupLength) == '(') ||
+                                (smiles.charAt(index-1) == '(' && smiles.charAt(index+groupLength) == '[') ||
                                 
-                                (smiles.charAt(index-1) == ']' & match(smiles.charAt(index+groupLength), atomSymbols)) ||
-                                (smiles.charAt(index-1) == ']' & match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
-                                (smiles.charAt(index-1) == ']' & smiles.charAt(index+groupLength) == '(') ||
-                                (smiles.charAt(index-1) == ']' & smiles.charAt(index+groupLength) == '[')) {
+                                (smiles.charAt(index-1) == ']' && match(smiles.charAt(index+groupLength), atomSymbols)) ||
+                                (smiles.charAt(index-1) == ']' && match(smiles.charAt(index+groupLength), singleBondSymbols)) ||
+                                (smiles.charAt(index-1) == ']' && smiles.charAt(index+groupLength) == '(') ||
+                                (smiles.charAt(index-1) == ']' && smiles.charAt(index+groupLength) == '[')) {
                             throw new SmiLibConformityException("More than one atom connected to [R] in SMILES\n" + smiles);
+                        }
+                    // Check for cases like this: [R1](F)CC --> invalid
+                    } else if (!smilesEndsWithGroup) {
+                        int parenthesisEndIndex;
+                        if (    smiles.charAt(index + groupLength) == '(' &&                                                  // If there is an opening parenthesis after the R-group
+                                (parenthesisEndIndex = smiles.indexOf(')', index + groupLength)) != -1 &&                     // find the position of closing parenthesis,
+                                parenthesisEndIndex + 1 < smiles.length() &&                                                  // make it's not at the end minus one of the string
+                                match(smiles.charAt(parenthesisEndIndex + 1), atomStartSymbols)) {                            // and if there is an atom start symbol following the closing parenthesis
+                            throw new SmiLibConformityException("More than one atom connected to [R] in SMILES\n" + smiles);  // then the R-group is connected to more than one atom.
                         }
                     }
                 }
@@ -504,6 +523,15 @@ public class ConformityChecker {
                     (temp.charAt(index-1) == ']' & temp.charAt(index+3) == '(') ||
                     (temp.charAt(index-1) == ']' & temp.charAt(index+3) == '[')) {
                 throw new SmiLibConformityException("More than one atom connected to [A] in SMILES\n" + smiles);
+            }
+        // Check for cases like this: [R1](F)CC --> invalid
+        } else if (!smilesEndsWithGroup) {
+            int parenthesisEndIndex;
+            if (    smiles.charAt(index + 3) == '(' &&                                                            // If there is an opening parenthesis after the A-group
+                    (parenthesisEndIndex = smiles.indexOf(')', index + 3)) != -1 &&                               // find the position of closing parenthesis,
+                    parenthesisEndIndex + 1 < smiles.length() &&                                                  // make it's not at the end minus one of the string
+                    match(smiles.charAt(parenthesisEndIndex + 1), atomStartSymbols)) {                            // and if there is an atom start symbol following the closing parenthesis
+                throw new SmiLibConformityException("More than one atom connected to [A] in SMILES\n" + smiles);  // then the A-group is connected to more than one atom.
             }
         }
     }

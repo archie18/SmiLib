@@ -1,0 +1,4 @@
+[A]c1ccccc1
+[A]c1ccoc1
+[Y]NC(CC1=CC=CO1)C(=O)[A]
+C%99C(=O)N[C@@H](CC1CC1)C([A])=O

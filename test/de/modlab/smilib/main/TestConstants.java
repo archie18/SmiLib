@@ -225,6 +225,15 @@ public class TestConstants {
   
   public static final String novalixExpectedResult = "./testdata/novalix_expected_result.txt";
   
+  public static final String xiaoBuildingBlocks = "./testdata/Xiao_Jiajie_buildingblocks.txt";
+
+  public static final String xiaoLinker = "./testdata/Xiao_Jiajie_linkers.txt";
+  
+  public static final String xiaoScaffold = "./testdata/Xiao_Jiajie_scaffolds.txt";
+  
+  public static final String xiaoReactionScheme = "./testdata/Xiao_Jiajie_reaction_scheme.txt";
+    
+  public static final String xiaoExpectedResult = "./testdata/Xiao_Jiajie_expected_result.txt";
   
 //  /** A few exceptions that openbabel cannot convert correctly so far. */
 //  public static final String[] expectedValidSmilesRaw = new String[expectedValidSmiles.length];

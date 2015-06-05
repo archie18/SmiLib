@@ -4,3 +4,4 @@ CCCCCC
 C[A]C
 C([A]C)
 C1CC[A]1
+[A](Cl)CC
